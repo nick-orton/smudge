@@ -1,7 +1,7 @@
 var http = require('http'),
 httpProxy = require('http-proxy');
 conf = require('./conf')
-smudgers = require('./smudger')
+smudgers = require('./src/smudger')
 
 smudger = smudgers.create();
 
