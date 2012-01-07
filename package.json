@@ -1,12 +1,14 @@
 {
   "author": "no",
   "name": "smudge",
-  "description": "smudge your headers",
-  "version": "0.0.0",
+  "description": "a proxy to smudge your headers",
+  "version": "0.0.0-gamma",
+  "keywords" : ["proxy", "user-agent"],
   "repository": {
-    "url": ""
+    "type": "git",
+    "url": "git://github.com/nick-orton/smudge.git"
   },
-  "main": "prox.js",
+  "bin": { "start-smudge": "./bin/smudge.js" },
   "engines": {
     "node": "~0.6.6"
   },
