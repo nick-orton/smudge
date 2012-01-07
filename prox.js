@@ -30,7 +30,7 @@ var bots = ["Baiduspider+(+http://www.baidu.com/search/spider_jp.html)",
             "Wget/1.8.1"
             ];
 
-var fileContents = fs.readFileSync("./country_codes.json",'utf8');
+var fileContents = fs.readFileSync("./langs.json",'utf8');
 var langs = JSON.parse(fileContents);
 
 var bot_worthy = [/.*\.css/, /.*\.js/, /.*\.png/,
