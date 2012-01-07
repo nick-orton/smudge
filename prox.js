@@ -1,5 +1,6 @@
 var http = require('http'),
 httpProxy = require('http-proxy');
+fs = require('fs');
 
 
 var browsers = [
@@ -29,6 +30,9 @@ var bots = ["Baiduspider+(+http://www.baidu.com/search/spider_jp.html)",
             "Wget/1.8.1"
             ];
 
+var fileContents = fs.readFileSync("./country_codes.json",'utf8');
+var langs = JSON.parse(fileContents);
+
 var bot_worthy = [/.*\.css/, /.*\.js/, /.*\.png/,
                   /.*\.gif/, /.*\.ico/, /.*\.jpg/,
                   /.*\.flv/]
@@ -38,8 +42,28 @@ var parent = {
   port: 3128
 }
 
+function choose(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+function prob(chance) {
+  return Math.floor(Math.random() * 10000) < chance;
+}
+
+function accept_language(){
+  var dialect = choose(langs["englishes"]);
+  var exotic = choose(langs["exotics"]);
+  if(prob(6397)){
+    return dialect + ",en;q=0.8";
+  }
+  if(prob(1000)){
+    return exotic + "," + dialect + ";q=0.8,en";
+  }
+  return dialect + ",en;q=0.8," + exotic + ";q=0.6";
+}
+
 function set_user_agent(req, agents){
-  var agent = agents[Math.floor(Math.random() * agents.length)];
+  var agent = choose(agents);
   req.headers['user-agent'] = agent;
 }
 
@@ -49,6 +73,7 @@ httpProxy.createServer(function (req, res, proxy) {
   } else {
     set_user_agent(req, browsers);
   }
+  req.headers['accept-language'] = accept_language();
 
   //console.log(req.headers['user-agent']);
   //console.log('##' +req.url)
