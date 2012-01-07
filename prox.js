@@ -2,6 +2,7 @@ var http = require('http'),
 httpProxy = require('http-proxy');
 fs = require('fs');
 rand = require('./rand')
+conf = require('./conf')
 
 
 console.log('loading languages');
@@ -13,13 +14,6 @@ console.log('data loaded');
 var bot_worthy = [/.*\.css/, /.*\.js/, /.*\.png/,
                   /.*\.gif/, /.*\.ico/, /.*\.jpg/,
                   /.*\.flv/, /.*\.mp3/]
-
-var parent = {
-  host: 'localhost',
-  port: 3128
-}
-
-
 
 function accept_language() {
   var dialect = rand.choose(langs["englishes"]);
@@ -47,8 +41,5 @@ httpProxy.createServer(function (req, res, proxy) {
   }
   req.headers['accept-language'] = accept_language();
 
-  //console.log(req.headers['user-agent']);
-  //console.log('##' +req.url)
-
-  proxy.proxyRequest(req, res, parent);
-}).listen(3129);
+  proxy.proxyRequest(req, res, conf.parent);
+}).listen(conf.listenPort);
