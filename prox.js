@@ -6,9 +6,9 @@ conf = require('./conf')
 
 
 console.log('loading languages');
-var langs = JSON.parse(fs.readFileSync("./langs.json",'utf8'));
+var langs = JSON.parse(fs.readFileSync("./data/langs.json",'utf8'));
 console.log('loading users');
-var users = JSON.parse(fs.readFileSync("./users.json",'utf8'));
+var users = JSON.parse(fs.readFileSync("./data/users.json",'utf8'));
 console.log('data loaded');
 
 var bot_worthy = [/.*\.css/, /.*\.js/, /.*\.png/,
