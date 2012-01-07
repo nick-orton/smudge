@@ -15,7 +15,7 @@ var bot_worthy = [/.*\.css/, /.*\.js/, /.*\.png/,
                   /.*\.gif/, /.*\.ico/, /.*\.jpg/,
                   /.*\.flv/, /.*\.mp3/]
 
-function accept_language() {
+function acceptLanguage() {
   var dialect = rand.choose(langs["englishes"]);
   var exotic = rand.choose(langs["exotics"]);
 
@@ -28,18 +28,21 @@ function accept_language() {
   return dialect + ",en;q=0.8," + exotic + ";q=0.6";
 }
 
-function set_user_agent(req, agents){
+function setUserAgent(req, agents){
   var agent = rand.choose(agents);
   req.headers['user-agent'] = agent;
 }
 
-httpProxy.createServer(function (req, res, proxy) {
+function mutateHeaders(req){
   if(bot_worthy.some(function(regex){ return regex.test(req.url);})){
-    set_user_agent(req, users["bots"]);
+    setUserAgent(req, users["bots"]);
   } else {
-    set_user_agent(req, users["browsers"]);
+    setUserAgent(req, users["browsers"]);
   }
-  req.headers['accept-language'] = accept_language();
+  req.headers['accept-language'] = acceptLanguage();
+}
 
+httpProxy.createServer(function (req, res, proxy) {
+  mutateHeaders(req);
   proxy.proxyRequest(req, res, conf.parent);
 }).listen(conf.listenPort);
