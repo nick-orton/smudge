@@ -7,7 +7,7 @@ var users = JSON.parse(fs.readFileSync("./users.json",'utf8'));
 
 var bot_worthy = [/.*\.css/, /.*\.js/, /.*\.png/,
                   /.*\.gif/, /.*\.ico/, /.*\.jpg/,
-                  /.*\.flv/]
+                  /.*\.flv/, /.*\.mp3/]
 
 var parent = {
   host: 'localhost',
@@ -31,7 +31,7 @@ function accept_language() {
     return dialect + ",en;q=0.8";
   }
   if(prob(1000)){
-    return exotic + "," + dialect + ";q=0.8,en";
+    return exotic + "," + dialect + ";q=0.8,en;q=0.6";
   }
   return dialect + ",en;q=0.8," + exotic + ";q=0.6";
 }
