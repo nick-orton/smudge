@@ -10,6 +10,9 @@ var langs = JSON.parse(fs.readFileSync("./data/langs.json",'utf8'));
 console.log('loading users');
 var users = JSON.parse(fs.readFileSync("./data/users.json",'utf8'));
 console.log('data loaded');
+console.log('')
+console.log('☠☠☠ waiting for headers to smudge ☠☠☠');
+
 
 var bot_worthy = [/.*\.css/, /.*\.js/, /.*\.png/,
                   /.*\.gif/, /.*\.ico/, /.*\.jpg/,
