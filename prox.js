@@ -22,9 +22,11 @@ function prob(chance) {
   return Math.floor(Math.random() * 10000) < chance;
 }
 
-function accept_language(){
+function accept_language() {
+
   var dialect = choose(langs["englishes"]);
   var exotic = choose(langs["exotics"]);
+
   if(prob(6397)){
     return dialect + ",en;q=0.8";
   }
